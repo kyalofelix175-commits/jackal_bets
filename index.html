@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRLM Betting</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. AUTHENTICATION PAGE (Sign In / Sign Up) -->
+    <div id="auth-page" class="page-container">
+        <header class="auth-header">
+            <h1>JACKAL</h1><br>
+            <h2>Powered by prlm inc.</h2>
+        </header>
+        
+        <div class="auth-card">
+            <h2 id="auth-title">Sign Up</h2>
+            <form id="auth-form">
+                <div class="input-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required placeholder="Enter phone number">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password (5 characters)</label>
+                    <input type="password" id="password" required minlength="5" maxlength="5" placeholder="Enter 5-digit password">
+                </div>
+                
+                <button type="submit" id="auth-submit-btn" class="btn primary-btn">Create Account</button>
+            </form>
+            
+            <p class="auth-toggle">
+                <span id="toggle-text">Already have an account?</span> 
+                <button id="toggle-auth-btn">Sign In</button>
+            </p> 
+        </div>
+        <p class="contacts">
+            <span>Contact us: <br> +254116299911/0738944782<br> Email: prlminvestment@gmail.com<br><br></span>
+        </p>
+        <p class="terms">   
+            <span>By proceding you agree to the terms and conditions as stated in our usage agreement policy.</span>
+        </p>
+    </div>
+
+    <!-- MAIN APP PAGE (Hidden by default until signed in) -->
+    <div id="main-app" class="page-container hidden">
+        
+        <!-- 2 & 6. TOP DASHBOARD -->
+        <header class="dashboard-header">
+            <div class="user-info">
+                <span id="dash-phone">Phone: ---</span>
+                <span id="dash-balance">Balance: Kes 0.00</span>
+            </div>
+            <div class="slip-info">
+                <span>Total Odds: <strong id="total-odds">0.00</strong></span>
+            </div>
+            <button id="profile-btn" class="icon-btn">👤 profile</button>
+        </header>
+
+        <!-- 3 & 4. MATCHES CONTAINER -->
+        <main class="content-area">
+            <!-- Matches Section -->
+            <div id="home-section" class="app-section">
+                <div class="matches-header">
+                    <span class="header-match">Match</span>
+                    <div class="header-odds">
+                        <span>1</span>
+                        <span>X</span>
+                        <span>2</span>
+                    </div>
+                </div>
+                <!-- Simulated games will be injected here via script.js -->
+                <div id="matches-list"></div>
+            </div>
+
+            <!-- 7. POPUP MODALS (Deposit, Withdraw, Bet Slip, Profile) -->
+            <!-- Deposit Modal -->
+            <div id="deposit-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Deposit Funds</h3>
+                    <p>Minimum deposit: Kes 10</p>
+                    <input type="number" id="deposit-amount" min="10" placeholder="Amount">
+                    <div class="modal-actions">
+                        <button id="confirm-deposit" class="btn success-btn">Deposit</button>
+                        <button class="btn close-modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdraw Modal -->
+            <div id="withdraw-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Withdraw Funds</h3>
+                    <p>Minimum withdrawal: Kes 20</p>
+                    <input type="number" id="withdraw-amount" min="20" placeholder="Amount">
+                    <div class="modal-actions">
+                        <button id="confirm-withdraw" class="btn danger-btn">Withdraw</button>
+                        <button class="btn close-modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bet Slip Modal -->
+            <div id="bet-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Place Bet</h3>
+                    <p>Selected Bets: <span id="selected-bets-count">0</span></p>
+                    <p>Total Odds: <span id="bet-slip-odds">0.00</span></p>
+                    <input type="number" id="bet-stake" min="1" placeholder="Enter Stake Amount">
+                    <p>Potential Win: <span id="potential-win">Kes 0.00</span></p>
+                    <div class="modal-actions">
+                        <button id="place-bet-btn" class="btn primary-btn">Confirm Bet</button>
+                        <button class="btn close-modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. Profile & History Modal -->
+            <div id="profile-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h3>Account History</h3>
+                    <div class="history-tabs">
+                        <div class="history-block">
+                            <h4>Bet History</h4>
+                            <ul id="bet-history-list"><li>No bets placed yet.</li></ul>
+                        </div>
+                        <div class="history-block">
+                            <h4>Transaction History</h4>
+                            <ul id="transaction-history-list"><li>No transactions yet.</li></ul>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="logout-btn" class="btn danger-btn">Sign Out</button>
+                        <button class="btn close-modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 7. BOTTOM NAVIGATION BAR -->
+        <nav class="bottom-nav">
+            <button id="nav-home" class="nav-item active">HOME</button>
+            <button id="nav-deposit" class="nav-item">DEPOSIT</button>
+            <button id="nav-withdraw" class="nav-item">WITHDRAW</button>
+            <button id="nav-bet" class="nav-item">BET <span id="nav-slip-count" class="badge">0</span></button>
+        </nav>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,454 @@
+/* --- SYSTEM RESET & VARIABLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+:root {
+    --bg-color: #121214;
+    --card-bg: #1a1a1e;
+    --accent-color: #00e676; /* Green accents for bets/success */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a2;
+    --border-color: #2a2a30;
+    --danger-color: #ff3b30;
+    --active-odds-bg: #dfc010ea; /* Yellow highlight for selected odds */
+    --active-odds-text: #000000;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Page Layout Utility */
+.page-container {
+    width: 100%;
+    max-width: 480px; /* Constraints it to look like a clean mobile app */
+    background: var(--bg-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-bottom: 70px; /* Space for bottom nav bar */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- BUTTONS & INPUTS --- */
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1rem;
+}
+
+.primary-btn { background-color: var(--accent-color); color: #000; }
+.primary-btn:hover { background-color: #6bc495; }
+.success-btn { background-color: #28a745; color: white; }
+.danger-btn { background-color: var(--danger-color); color: white; }
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    padding: 12px;
+    background: #cacad35e;
+    padding: 12px;
+    border: 1px solid #cacad35e;
+    color: white;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.input-group input:focus {
+    border: 2px solid green;
+    outline: none;
+}
+
+/* --- 1. SIGN IN / SIGN UP PAGE --- */
+#auth-page {
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-header h1 {
+    font-size: 60px;
+    text-align: center;
+    color: goldenrod;
+    letter-spacing: 0px;
+    margin-bottom: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.auth-header h2 {
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.auth-card {
+    background: rgb(25, 29, 25);
+    width: 100%;
+    padding-top: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    border-radius: 30px;
+    box-shadow: 0 8px 24px rgba(11, 252, 3, 0);
+    text-align: center;
+}
+
+.auth-card h2 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    color: grey;
+}
+
+.auth-card .btn {
+    width: 150px;
+    margin-top: 10px;
+    background-color: rgba(21, 155, 21, 0.678);
+    font-weight: 800;
+}
+
+.auth-toggle {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+.terms {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 11px;
+}
+.contacts {
+    text-align: center;
+    margin-top: 100px;
+    margin-bottom: 0px;
+    font-size: 13px;
+    color: rgba(0, 0, 255, 0.699);
+    font-weight: 1000;
+}
+
+#toggle-auth-btn {
+    background: none;
+    border: none;
+    color: green;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-left: 5px;
+}
+
+/* --- 2 & 6. TOP DASHBOARD --- */
+.dashboard-header {
+    background: rgba(17, 122, 17, 0.753);
+    padding: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid black;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 11px;
+}
+
+#dash-phone { color: goldenrod; font-weight: bold; }
+#dash-balance { font-weight: bold; color: black; }
+
+.slip-info {
+    font-size: 0.85rem;
+    background: #222227;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+#total-odds { color: var(--active-odds-bg); }
+
+.icon-btn {
+    background: #2a2a30;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* --- 3 & 4. MATCHES LAYOUT --- */
+.content-area {
+    padding: 10px;
+}
+
+.matches-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.header-match { 
+    color: grey;
+
+}
+.header-odds {
+    display: flex;
+    width: 160px;
+    justify-content: space-around;
+    padding-right: 5px;
+    color: grey;
+}
+
+/* Game Match Box */
+.match-box {
+    background: rgba(0, 0, 0, 0.507);
+    border-radius: 20px;
+    padding: 20px 15px;
+    margin-bottom: 7.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+
+}
+
+.match-teams {
+    flex: 1;
+    font-size: 11px;
+    font-family: 'inter', sans-serif;
+    font-weight: 500;
+    padding-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: whitesmoke;
+}
+.match-meta {
+    font-size: 10px;
+    color: grey;
+    margin-top: 8px;
+    display: block; /* Ensures it sits neatly below the team names */
+}
+
+.match-odds-container {
+    display: flex;
+    gap: 6px;
+    width: 160px;
+}
+
+.odds-btn {
+    flex: 1;
+    background: #2e462f81;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 6px 0;
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.75s ease;
+}
+
+/* 5. Highlight color for selected odd button */
+.odds-btn.selected {
+    background-color: var(--active-odds-bg) !important;
+    color: var(--active-odds-text) !important;
+    border-color: var(--active-odds-bg);
+}
+
+/* --- 7 & 8. POPUP MODALS --- */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-content h3 { margin-bottom: 10px; color: green;}
+.modal-content p { color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9rem; }
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    background: #222227;
+    border: 1px solid var(--border-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.modal-actions .btn { 
+    flex: 1; 
+    background-color: #0a571bb2;
+    border-radius: 12px;
+}
+.close-modal { 
+    background: #3a3a40; 
+    color: rgba(226, 12, 12, 0.788);
+    font-weight: 600;
+ }
+
+/* Profile History Blocks */
+.history-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-height: 250px;
+    overflow-y: auto;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+.history-block h4 {
+    border-bottom: 5px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    color: green;
+    font-size: 15px;
+    text-align: center;
+}
+
+.history-block ul {
+    list-style: none;
+    font-size: 12px;
+}
+
+.history-block li {
+    padding: 6px 0;
+    border-bottom: 1px dashed #4343a0;
+}
+
+/* --- 7. BOTTOM NAVIGATION BAR --- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background: rgb(17, 20, 17);
+    border-top: 1px solid var(--border-color);
+    border-top-color: rgba(30, 212, 57, 0.274);
+    border-top-width: 1px;
+    display: flex;
+    height: 60px;
+    z-index: 10;
+}
+
+.nav-item {
+    flex: 1;
+    background: none;
+    border: none;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    gap: 4px;
+    cursor: pointer;
+    position: relative;
+    font-weight: bolder;
+}
+
+.nav-item.active {
+    color: green;
+    font-weight: bold;
+}
+
+.badge {
+    position: absolute;
+    top: 8px;
+    right: 20%;
+    background: red;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+/* Live Indicator Styles */
+.badge-live {
+    background-color: var(--danger-color);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    animation: pulse 1.5s infinite;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
