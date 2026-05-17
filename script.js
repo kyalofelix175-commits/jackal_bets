@@ -226,6 +226,24 @@ document.getElementById('confirm-deposit').onclick = async () => {
     } else alert(data.error);
 };
 
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("https://your-backend.onrender.com/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  console.log(data);
+});
+
 document.getElementById('confirm-withdraw').onclick = async () => {
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
     const res = await fetch(`${API_BASE}/withdraw`, {
