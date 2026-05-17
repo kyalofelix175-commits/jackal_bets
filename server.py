@@ -6,7 +6,7 @@ import base64  # Added for M-Pesa password encoding
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
-from werkzueg.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 load_dotenv()
 
