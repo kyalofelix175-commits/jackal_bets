@@ -116,7 +116,7 @@ def trigger_stk_push():
         }
         
         # Render dynamic deployment tracking path
-        app_url = os.environ.get('RENDER_EXTERNAL_URL', 'http://localhost:3000')
+        app_url = os.environ.get('RENDER_EXTERNAL_URL', 'https://jackal-bets-prlm.onrender.com')
         callback_url = f"{app_url}/api/mpesa/callback"
 
         payload = {
