@@ -166,6 +166,7 @@ body {
 /* --- 2 & 6. TOP DASHBOARD --- */
 .dashboard-header {
     background: rgba(17, 122, 17, 0.753);
+    background: yellow;
     padding: 17px;
     display: flex;
     justify-content: space-between;
