@@ -36,13 +36,11 @@ BUSINESS_SHORT_CODE = "174379"  # Default Daraja sandbox shortcode
 # 1. INITIALIZE SECURE SQLITE3 DATABASE
 # ==========================================
 # Switches to Render's persistent disk folder path if running in the cloud
-if os.environ.get('RENDER'):
-    DATABASE = '/data/prlm_database.db'
-else:
-    DATABASE = "prlm_database.db"
+import os
+DATABASE = os.path.join("/tmp", "database.db")
 
 def get_db():
-    conn = sqlite3.connect(DATABASE)
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row  # Enables accessing columns by name
     conn.execute("PRAGMA foreign_keys = ON;")  # Ensures table references align perfectly
     return conn
