@@ -226,23 +226,27 @@ document.getElementById('confirm-deposit').onclick = async () => {
     } else alert(data.error);
 };
 
-document.getElementById("loginForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
+const loginForm = document.getElementById("loginForm"); // Fix: Removed "ary"
 
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+if (loginForm) {
+    loginForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-  const res = await fetch("https://jackal-bets-prlm.onrender.com/api/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ username, password })
-  });
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
 
-  const data = await res.json();
-  console.log(data);
-});
+        const res = await fetch("https://jackal-bets-prlm.onrender.com/api/signin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        console.log(data);
+    }); // Closes the addEventListener
+} // Fix: Closes the if (loginForm) statement
 
 document.getElementById('confirm-withdraw').onclick = async () => {
     const amount = parseFloat(document.getElementById('withdraw-amount').value);
