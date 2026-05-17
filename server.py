@@ -193,7 +193,7 @@ def signup():
     except sqlite3.IntegrityError:
         return jsonify({"error": "Phone number already registered."}), 400
 
-@app.route('/signin', methods=['POST'])
+@app.route('/api/signin', methods=['POST'])
 def signin():
     data = request.get_json()
     phone = data.get('phone')
