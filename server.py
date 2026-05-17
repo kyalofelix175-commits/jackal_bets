@@ -195,7 +195,7 @@ def signup():
 
 @app.route('/signin', methods=['POST'])
 def signin():
-    data = request.get_json
+    data = request.get_json()
     phone = data.get('phone')
     password = data.get('password')
 
@@ -205,7 +205,7 @@ def signin():
     if not user:
         return jsonify({"error": "User not found."}), 400
 
-    if chech_password_hash(user['password_hash'], password):
+    if check_password_hash(user['password_hash'], password):
         return jsonify({"success": True, "user": {"phone": user['phone'], "balance": user['balance']}})
     
     return jsonify({"error": "Invalid password credentials."}), 401
