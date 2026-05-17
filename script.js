@@ -232,7 +232,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("https://your-backend.onrender.com/login", {
+  const res = await fetch("https://jackal-bets-prlm.onrender.com/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
