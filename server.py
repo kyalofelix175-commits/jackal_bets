@@ -1,12 +1,12 @@
 import os
 import sqlite3
 import datetime
-import bcrypt
 import requests
 import base64  # Added for M-Pesa password encoding
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from dotenv import load_dotenv
+from werkzueg.security import generate_password_hash, check_password_hash
 
 load_dotenv()
 
@@ -185,7 +185,7 @@ def signup():
     if not phone or not password or len(password) != 5:
         return jsonify({"error": "Invalid data. Password must be 5 characters."}), 400
 
-    hashed = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    hashed = generate_password_hash(password)
 
     try:
         with get_db() as conn:
@@ -207,7 +207,7 @@ def signin():
     if not user:
         return jsonify({"error": "User not found."}), 400
 
-    if bcrypt.checkpw(password.encode('utf-8'), user['password_hash'].encode('utf-8')):
+    if chech_password_hash(user['password_hash'], password):
         return jsonify({"success": True, "user": {"phone": user['phone'], "balance": user['balance']}})
     
     return jsonify({"error": "Invalid password credentials."}), 401
